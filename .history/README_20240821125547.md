@@ -1,0 +1,144 @@
+# NP paper Github ReadMe
+
+Created time: August 21, 2024 11:12 AM
+Status: Not started
+
+# **Protocol: a detailed guide to assess genome assembly based on long-read sequencing data**
+
+---
+
+Scenario show case for genome assembly based on long-read sequencing data using Inspector. 
+
+Inspector package can be found [https://github.com/Maggi-Chen/Inspector](https://github.com/Maggi-Chen/Inspector)
+
+---
+
+## **Scenario 1: Reference-free diploid and haplotype-resolved genome assemblies evaluation**
+
+### **Stage 1: Download both assembly and raw genome reads files.**
+
+Scenario 1 assembly files:
+
+- hap1.fa.gz
+- hap2.fa.gz
+
+```bash
+cd /path/to/assembled_contig/
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/submissions/53FEE631-4264-4627-8FB6-09D7364F4D3B--ASM-COMP/HG002/assemblies/hifiasm_v0.19.5/hic/HG002.hap1.fa.gz
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/submissions/53FEE631-4264-4627-8FB6-09D7364F4D3B--ASM-COMP/HG002/assemblies/hifiasm_v0.19.5/hic/HG002.hap2.fa.gz
+```
+
+Scenario 1 Raw reads files:
+
+- m64011_190830_220126.Q20.fastq.gz
+- m64011_190901_095311.Q20.fastq.gz
+- m64012_190920_173625.Q20.fastq.gz
+- m64012_190921_234837.Q20.fastq.gz
+
+```bash
+cd /path/to/rawfastq/
+wget https://storage.googleapis.com/brain-genomics/awcarroll/t2t/fastq/q20/m64011_190830_220126.Q20.fastq.gz
+wget https://storage.googleapis.com/brain-genomics/awcarroll/t2t/fastq/q20/m64011_190901_095311.Q20.fastq.gz
+wget https://storage.googleapis.com/brain-genomics/awcarroll/t2t/fastq/q20/m64012_190920_173625.Q20.fastq.gz
+wget https://storage.googleapis.com/brain-genomics/awcarroll/t2t/fastq/q20/m64012_190921_234837.Q20.fastq.gz
+```
+
+### **Stage 2: Genome assembly evaluation using Inspector for each haplotype**
+
+Scenario 1 settings:
+
+- Raw reads type used for evaluation: HiFi
+- Reference: no
+- Error correction: yes
+
+```bash
+inspector.py -c /path/to/assembled_contig/HG002.hap1.fa \
+-r /path/to/rawfastq/*.fastq.gz -o HG002_HiFi_hap1_noref/ -t8 --datatype hifi \
+1> HG002_HiFi_hap1_noref.log 2>&1
+inspector-correct.py -t8 -i HG002_HiFi_hap1_noref/ --datatype pacbio-hifi \
+-o HG002_HiFi_hap1_noref
+
+inspector.py -c /path/to/assembled_contig/HG002.hap2.fa \
+-r /path/to/rawfastq/*.fastq.gz -o  HG002_HiFi_hap2_noref/ -t8 --datatype hifi \
+1> HG002_HiFi_hap2_noref.log 2>&1
+inspector-correct.py -t8 -i HG002_HiFi_hap2_noref/ --datatype pacbio-hifi \
+-o HG002_HiFi_hap2_noref
+```
+
+---
+
+## **Scenario 2: Reference-free HiFi primary genome assembly evaluation with error correction**
+
+### S**tage 1: Download both assembly and raw genome reads files.**
+
+Scenario 2 assembly file:
+
+- HiFi.hifiasm-0.12.pri.fa.gz
+
+```bash
+cd /path/to/assembled_contig/
+wget https://zenodo.org/records/4393631/files/HG00733.HiFi.hifiasm-0.12.pri.fa.gz
+```
+
+Scenario 2 raw reads run IDs from Sequence Read Archive:
+
+- ERR3822935
+- ERR3861382
+- ERR3861383
+- ERR3861384
+- ERR3861385
+- ERR3861386
+- ERR3861387
+
+Download SRR_Acc_List.txt (select all 7 runs) form [https://www.ncbi.nlm.nih.gov/Traces/study/?acc=ERX3831682&o=acc_s%3Aa&s=ERR3822935](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=ERX3831682&o=acc_s%3Aa&s=ERR3822935)
+
+```bash
+$ cd /path/to/rawfastq/
+$ while read sample; do fastq-dump  $sample ; done <SRR_Acc_List.txt
+```
+
+### **Stage 2: Genome assembly evaluation using Inspector**
+
+Scenario 2 settings:
+
+- Raw reads type used for evaluation: HiFi
+- Reference: no
+- Error correction: yes
+
+```bash
+inspector.py -c /path/to/assembled_contig/HG00733.HiFi.hifiasm-0.12.pri.fa \
+-r /path/to/ rawfastq/*.fastq -o HG00733_HiFi_noref/ -t8 --datatype hifi \
+1>HG00733_HiFi_noref.log 2>&1
+inspector-correct.py -t8 -i HG00733_HiFi_noref/ --datatype pacbio-hifi -o HG00733_HiFi_noref/
+```
+
+---
+
+## **Scenario 3: Reference-based ONT genome assembly evaluation with error correction**
+
+### 
+
+**Stage 1: Download assembly, raw genome reads files, and genome reference file**
+
+Scenario 3 assembly filename:
+
+- ONT.Flye-2.4.2_Helen.pri.fa.gz
+
+```bash
+cd /path/to/assembled_contig/
+wget https://zenodo.org/records/4393631/files/HG00733.ONT.Flye-2.4.2_Helen.pri.fa.gz
+
+```
+
+Scenario 3 raw reads file names:
+
+- fastq.gz
+- fastq.gz
+- fastq.gz
+
+```bash
+cd /path/to/rawfastq/
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/working/HPRC_PLUS/HG00733/raw_data/nanopore/HG00733_1.fastq.gz
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/working/HPRC_PLUS/HG00733/raw_data/nanopore/HG00733_2.fastq.gz 
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/working/HPRC_PLUS/HG00733/raw_data/nanopore/HG00733_3.fastq.gz
+```
