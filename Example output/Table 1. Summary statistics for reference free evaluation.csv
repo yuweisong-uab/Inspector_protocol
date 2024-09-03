@@ -1,0 +1,32 @@
+﻿Table 1. Summary statistics for reference free evaluation,,,,
+Measurement,Type,Range,Definition,Interpretation
+Contigs Statistics:,,,,
+Number of contigs,Int,≥0,The total number of contigs in the assembly,Context
+"Number of contigs > 10,000 bp",Int,≥0,"The number of contigs with size>10,000 bp",Context
+"Number of contigs > 1,000,000 bp",Int,≥0,"The number of contigs with size>1,000,000 bp",Context
+Total length,Int,≥0,The total length of the assembly,Context
+"Total Length of contigs > 10,000 bp",Int,≥0,"The total length of contigs>10,100 bp",Context
+"Total length of contigs > 1,000,000 bp",Int,≥0,"The total length of contigs>1,000,000 bp",Context
+Longest contig length,Int,≥0,The length of the longest contig,Higher is better
+Second longest contig length,Int,≥0,The length of the second longest contig,Higher is better
+N50,Int,≥0,"N50 statistics, measurement of contiguity",Higher is better
+"N50 of contigs > 1,000,000 bp",Int,≥0,,Higher is better
+Alignment Statistics:,,,,
+Mapping rate,%,0-1,% reads that is mapped to assembly,Higher is better
+Split-read rate,%,0-1,% reads that is split then mapped to assembly,Lower is better
+Depth,Int,≥0,Sequencing depth,Higher is better
+Mapping rate in large contigs,%,0-1,"% of reads mapped to contig>1,000,000 bp",Higher is better
+Split-read rate in large contigs,%,0-1,"% reads that is split then mapped to contigs>1,000,000 bp",Lower is better
+Depth in large contigs,Double,≥0,"Sequencing depth in contigs>1,000,000 bp",Higher is better
+Errors Statistics:,,,,
+Stuctural error,Int,≥0,Number of structural errors (sum of next 4 rows),Lower is better
+Expansion,Int,≥0,Number of expansion errors,Lower is better
+Collapse,Int,≥0,Number of collapse errors,Lower is better
+Haplotype switch,Int,≥0,Number of haplotype switch errors,Lower is better
+Inversion,Int,≥0,Number of inversion errors,Lower is better
+Small-scale assembly error per Mbp ,Int,≥0,Number of small-scale errors per Mbp,Lower is better
+Total small-scale assembly error,Int,≥0,Number of total small-scale errors error,Lower is better
+Base substitution,Int,≥0,Number of base substitution errors ,Lower is better
+Small-scale expansion,Int,≥0,Number of small-scale expansion errors ,Lower is better
+Small-scale collapse,Int,≥0,Number of small-scale collapse errors,Lower is better
+QV,Double,≥0,Assembly quality value,Higher is better
