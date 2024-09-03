@@ -1,0 +1,19 @@
+﻿Table 2. Summary statistics for reference-based evaluation,,,,
+Measurement,Type,Range,Definition,Interpretation
+Alignment Statistics:,,,,
+Genome Coverage,%,≥0,% contigs to reference coverage,Higher is better
+Reference base with Depth=0,Int; %,≥0; 0-1,# and % of reference base with Depth=0,Lower is better
+Reference base with Depth=1,Int; %,≥0; 0-1,# and % of reference base with Depth=1,Higher is better
+Reference base with Depth=2,Int; %,≥0; 0-1,# and % of reference base with Depth=2,Lower is better
+Reference base with Depth>2,Int; %,≥0; 0-1,# and % of reference base with Depth>2,Lower is better
+Assembly contig mapping ratio (length) ,%,0-1,% reads that is mapped ,Higher is better
+Assembly contig NA50,Int,≥0,Sum of length for all contigs satisfy N50,Higher is better
+Base Pair Statistics from Longest Contig:,,,,
+Number of small assembly collaspe,Int,≥0,Number of small collapse errors,Lower is better
+Number of small assembly extension,Int,≥0,Number of smal expansion errors ,Lower is better
+Number of single basepair error,Int,≥0,Number of single base error + SNP,Lower is better
+Base pair accuracy ,%,0-1,% base pair accuracy ,Higher is better
+Assembly Errors from Contig to Reference:,,,,
+Number of assembly collapse,Int,≥0,Number of collapse errors ,Lower is better
+Number of assembly expansion,Int,≥0,Number of expansion errors ,Lower is better
+Number of assembly inversion,Int,≥0,Number of inversion errors ,Lower is better
