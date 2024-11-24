@@ -1,4 +1,4 @@
-# **Protocol: a detailed guide to assess genome assembly based on long-read sequencing data**
+# **A detailed guide to assessing genome assembly based on long-read sequencing data using Inspector**
 
 ---
 
